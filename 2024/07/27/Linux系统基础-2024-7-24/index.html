@@ -19,23 +19,25 @@
         <meta name="keywords" content="dong-frank,学习笔记,计算机,软件工程,南京大学,南京大学软件工程,南京大学计算机,南京大学计算机学院,南京大学软件学院,南京大学软件工程学院">
     
     <meta name="description" content="">
-    <meta name="description" content="这是一篇学习使用Vim的笔记基本操作 光标的移动H: 左J: 下K: 上L: 右  模式的切换三种模式    &#x3D;&#x3D;命令模式(普通模式)&#x3D;&#x3D;大部分时间处于的模式该模式下键盘的操作看成是命令esc:从其他模式回到命令模式 &#x3D;&#x3D;输入模式&#x3D;&#x3D;i:在光标当前位置进入输入模式a:在当前光标的下一个位置进入输入模式o:在当前行的下一">
+    <meta name="description" content="Linux系统基础如何利用Linux系统帮助日常的学习和生活使用 Linux操作系统溯源 一种开源的操作系统 诞生于Unix操作系统 类Unix操作系统:Minix操作系统,用于教学 1991.8.25 Linus Torvalds开发Linux操作系统  Linux vs Linux发行版 Linux:操作系统的内核,管理硬件资源,提供基本服务 Linux发行版:将Linux内核与应用程序、库文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vim学习笔记">
-<meta property="og:url" content="http://dong-frank.github.io/2024/06/22/vim%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="Linux系统基础 2024.7.24">
+<meta property="og:url" content="http://dong-frank.github.io/2024/07/27/Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80-2024-7-24/index.html">
 <meta property="og:site_name" content="dong-frank&#39;s blog">
-<meta property="og:description" content="这是一篇学习使用Vim的笔记基本操作 光标的移动H: 左J: 下K: 上L: 右  模式的切换三种模式    &#x3D;&#x3D;命令模式(普通模式)&#x3D;&#x3D;大部分时间处于的模式该模式下键盘的操作看成是命令esc:从其他模式回到命令模式 &#x3D;&#x3D;输入模式&#x3D;&#x3D;i:在光标当前位置进入输入模式a:在当前光标的下一个位置进入输入模式o:在当前行的下一">
+<meta property="og:description" content="Linux系统基础如何利用Linux系统帮助日常的学习和生活使用 Linux操作系统溯源 一种开源的操作系统 诞生于Unix操作系统 类Unix操作系统:Minix操作系统,用于教学 1991.8.25 Linus Torvalds开发Linux操作系统  Linux vs Linux发行版 Linux:操作系统的内核,管理硬件资源,提供基本服务 Linux发行版:将Linux内核与应用程序、库文">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-06-22T12:29:32.113Z">
-<meta property="article:modified_time" content="2024-06-22T12:33:42.106Z">
+<meta property="article:published_time" content="2024-07-27T09:18:06.789Z">
+<meta property="article:modified_time" content="2024-07-27T09:22:20.444Z">
 <meta property="article:author" content="dong-frank">
-<meta property="article:tag" content="经验分享">
+<meta property="article:tag" content="南大">
+<meta property="article:tag" content="课程笔记">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/dongicon.ico">
     
-    <title>vim学习笔记 · dong-frank&#39;s blog</title>
+    <title>Linux系统基础 2024.7.24 · dong-frank&#39;s blog</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -261,7 +263,7 @@
                 <a href="/">dong-frank的博客</a>
             </div>
             <div class="post-title header-element">
-                <a href="#" class="post-name">vim学习笔记</a>
+                <a href="#" class="post-name">Linux系统基础 2024.7.24</a>
             </div>
         </div>
     
@@ -307,7 +309,7 @@
         <h1 class="intro-title">
             <!-- 主页  -->
             
-                vim学习笔记
+                Linux系统基础 2024.7.24
             <!-- 404 -->
             
         </h1>
@@ -327,7 +329,11 @@
                     <div class= post-intro-tags >
     
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="经验分享">经验分享</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="南大">南大</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="课程笔记">课程笔记</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
     
 </div>
 
@@ -335,13 +341,13 @@
                 <!-- 文章字数统计 -->
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">479</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">2.4k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <!-- 撰写日期 -->
                     <span class="iconfont-archer post-intro-calander">&#xe676;</span>
-                    <span class="post-intro-time">2024/06/22</span>
+                    <span class="post-intro-time">2024/07/27</span>
                     <!-- busuanzi -->
                     
                         <span id="busuanzi_container_page_pv" class="busuanzi-pv">
@@ -496,34 +502,222 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <h1 id="这是一篇学习使用Vim的笔记"><a href="#这是一篇学习使用Vim的笔记" class="headerlink" title="这是一篇学习使用Vim的笔记"></a>这是一篇学习使用Vim的笔记</h1><h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><ul>
-<li><p>光标的移动<br>H: 左<br>J: 下<br>K: 上<br>L: 右</p>
+        <h1 id="Linux系统基础"><a href="#Linux系统基础" class="headerlink" title="Linux系统基础"></a>Linux系统基础</h1><p>如何利用Linux系统帮助日常的学习和生活使用</p>
+<h2 id="Linux操作系统溯源"><a href="#Linux操作系统溯源" class="headerlink" title="Linux操作系统溯源"></a>Linux操作系统溯源</h2><ul>
+<li>一种开源的操作系统</li>
+<li>诞生于Unix操作系统</li>
+<li>类Unix操作系统:Minix操作系统,用于教学</li>
+<li>1991.8.25 Linus Torvalds开发Linux操作系统</li>
+</ul>
+<h2 id="Linux-vs-Linux发行版"><a href="#Linux-vs-Linux发行版" class="headerlink" title="Linux vs Linux发行版"></a>Linux vs Linux发行版</h2><ul>
+<li>Linux:操作系统的内核,管理硬件资源,提供基本服务</li>
+<li>Linux发行版:将Linux内核与应用程序、库文件、用户界面等打包在一起，形成一个完整可用的操作系统</li>
+<li>redhat:第一个Linux商业版本</li>
+<li>debian:另一个重要的发行版</li>
+<li>ubuntu:目前最流行的发行版<ul>
+<li>广泛的社区支持</li>
+</ul>
 </li>
-<li><p>模式的切换<br>三种模式</p>
+<li>不同的发行版软件更新方式不同<ul>
+<li>Ubuntu的更新方式更加保守,更加稳定</li>
+</ul>
+</li>
+<li>MacOS:源于 BSD unix</li>
+</ul>
+<h2 id="使用Linux"><a href="#使用Linux" class="headerlink" title="使用Linux"></a>使用Linux</h2><ul>
+<li>通过虚拟化软件安装&#x2F;导入Linux<ul>
+<li>virtualbox</li>
+<li>VMware</li>
+<li>安装:像其他的软件安装一样,时间较长</li>
+<li>导入:发行版的克隆,解压缩后可以直接使用<ul>
+<li>桌面版vs服务器版<ul>
+<li>桌面版面向普通用户,有图形化界面</li>
+<li>本节课程使用服务器版</li>
+</ul>
 </li>
 </ul>
-<ol>
-<li>&#x3D;&#x3D;命令模式(普通模式)&#x3D;&#x3D;<br>大部分时间处于的模式<br><strong>该模式下键盘的操作看成是命令</strong><br>esc:从其他模式回到命令模式</li>
-<li>&#x3D;&#x3D;输入模式&#x3D;&#x3D;<br>i:在光标当前位置进入输入模式<br>a:在当前光标的下一个位置进入输入模式<br>o:在当前行的下一行插入一个新行并进入输入模式<br>O:在当前行的上一行插入一个新行并进入输入模式<br>r:取代模式,取代当前光标一次<br>R:一直取代该光标,直到按下esc</li>
-<li>&#x3D;&#x3D;底线命令行模式&#x3D;&#x3D;<br>:+命令</li>
+</li>
+</ul>
+</li>
+<li>通过微软的WSL<ul>
+<li>不是虚拟化出一个Linux系统</li>
+<li>而是使用windows内核,模拟出一个Linux系统</li>
+</ul>
+</li>
+<li>申请公有云上的Linux虚拟机</li>
+<li>在mini主机,树莓派等小型主机上安装Linux系统</li>
+<li>Live USB</li>
+</ul>
+<h3 id="导入Linux"><a href="#导入Linux" class="headerlink" title="导入Linux"></a>导入Linux</h3><ol>
+<li>查看是否启用虚拟化</li>
+<li>virtualbox导入Linux</li>
+<li>网络配置选择NAT网络并点击创建<ul>
+<li>添加NAT网络使所有的虚拟机可以互相连通</li>
+</ul>
+</li>
 </ol>
+<h3 id="日常使用"><a href="#日常使用" class="headerlink" title="日常使用"></a>日常使用</h3><ul>
+<li><p>用户名:ubuntu</p>
+</li>
+<li><p>密码:ubuntu</p>
+</li>
+<li><p>一般不用重启,直接暂停,然后选择休眠</p>
+</li>
+</ul>
+<h3 id="软件更新"><a href="#软件更新" class="headerlink" title="软件更新"></a>软件更新</h3><p>每天日常要做:检查软件库有没有更新,更新软件库</p>
 <ul>
-<li>命令模式下的操作</li>
+<li>安全考虑</li>
 </ul>
 <ol>
-<li><dl><dt>基本操作<br>x:删除当前光标所在位置内容<br>X:删除当前光标的前一个位置<br>dd:删除当前行<br>yy:复制当前行<br>p:粘贴剪贴板内容到光标下方<br>P:粘贴剪贴板内容到光标上方<br>u:撤销上一次操作<br>ctrl + r:取消撤销操作</dt><dd>切换底线命令行模式<br>:w :保存文件<br>:q :退出Vim<br>:q! :不保存强制退出</dd></dl></li>
-<li><p>较复杂操作<br>ctrl f:向下翻页<br>ctrl b:向上翻页<br>0:移动到该行的开头<br>$:移动到改行的末尾<br>G:移动到最后一行<br>gg:移动到第一行<br>n G:移动到第n行<br>n enter:向下移动n行<br>&#x2F;word:向下搜索字符串<br>?word:向上搜索字符串<br>n:重复向下搜索 N:重复向上搜索<br>:n1,n2s&#x2F;word1&#x2F;word2&#x2F;g :在n1和n2行中查找word1并取代为word2<br>:%s&#x2F;word1&#x2F;word2&#x2F;g :从头到尾的查找并替换<br>:%s&#x2F;word1&#x2F;word2&#x2F;gc :从头到尾的查找并替换(确认之后)</p>
+<li>从apt软件库中更新本地的软件库 <code>sudo apt update</code></li>
+<li>更新到最新新版本 <code>sudo apt upgrade</code></li>
+</ol>
+<p><em>ctrl c 中断更新</em><br><strong>apt开头就是软件安装相关命令</strong></p>
+<h3 id="虚拟机启用SSH服务"><a href="#虚拟机启用SSH服务" class="headerlink" title="虚拟机启用SSH服务"></a>虚拟机启用SSH服务</h3><ol>
+<li><code>sudo apt update</code></li>
+<li><code>sudo apt install openssh-server</code> 安装openssh-server <strong>远程登录服务器</strong></li>
+<li><code>sudo systemctl start ssh</code> 运行ssh服务</li>
+</ol>
+<p><strong>systemctl开头就是启动服务的相关命令</strong><br>启用ssh服务后就可以从远程登录服务器(22号端口),可以通过外部图形化界面登录 <em>ssh client</em></p>
+<ol>
+<li><code>ip addr</code> 查看虚拟机ip</li>
+<li>在virtual box<strong>端口转发</strong>中添加映射规则, <em>主机端口确保不会被占用即可</em></li>
+<li>打开ssh client输入主机地址<code>127.0.0.1</code>和相应配置的端口号</li>
+</ol>
+<h3 id="为什么要使用命令行接口"><a href="#为什么要使用命令行接口" class="headerlink" title="为什么要使用命令行接口"></a>为什么要使用命令行接口</h3><p>针对程序员和管理者,图形化等其他接口限制了用户操作的方式.<br>bash shell:bourne orgain shell <strong>本课程简称为shell</strong><br>zsh:macOS的shell</p>
+<p><code>ubuntu@ubuntu2204:~$</code> 用户名@主机名</p>
+<p><code>~</code> 特指 home directory<br><code>$</code> 普通用户 normal user 不能修改系统(包括软件安装)<br><code>sudo</code> 让你执行完这个命令后升级为管理员用户 <strong>不是所有用户都能执行sudo命令</strong><br><code>sudo -i</code> 切换为<strong>超级用户</strong> 没有经验不要随意切换<br><code>exit</code> 退出切换回普通用户<br><code>#</code> 超级用户 super user</p>
+<h4 id="切换时区"><a href="#切换时区" class="headerlink" title="切换时区"></a>切换时区</h4><p><code>echo “zone=Asia/Shanghai” | sudo tee -a /usr/share/zoneinfo/Asia/Shanghai</code></p>
+<p><code>sudo rm /etc/localtime</code></p>
+<p><code>sudo ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</code></p>
+<h4 id="以echo为例介绍带参数的命令"><a href="#以echo为例介绍带参数的命令" class="headerlink" title="以echo为例介绍带参数的命令"></a>以echo为例介绍带参数的命令</h4><p>回显命令,给他什么输出什么,<strong>不用考虑空格</strong><br><code>echo hello world</code><br>但一般的命令对于空格这样的特殊符号敏感</p>
+<ul>
+<li>加单引号:<code>echo &#39;hello world&#39;</code></li>
+<li>转义:<code>echo hello\ world</code><ul>
+<li>反斜杠还可以延续行<code>echo this is a multi-\</code> <code>line</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="Linux系统是怎么找到这些命令的"><a href="#Linux系统是怎么找到这些命令的" class="headerlink" title="Linux系统是怎么找到这些命令的"></a>Linux系统是怎么找到这些命令的</h4><p>shell其实就是一种编程语言<br>输入<code>date</code>时,shell会去判断</p>
+<ol>
+<li>是不是编程关键字</li>
+<li>是不是命令<ol>
+<li>在环境变量下找到相应的命令 <code>PATH</code></li>
+<li><code>printenv PATH</code><ol>
+<li>Linux用正斜杠表示目录,反斜杠表示转义<strong>和windows不同</strong>,用冒号分隔不同路径</li>
+<li><code>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin</code> </li>
+<li>bin:binary 二进制</li>
+<li>sbin: super binary</li>
+</ol>
+</li>
+<li>更通用做法<code>echo $PATH</code><ol>
+<li><code>$PATH</code>就是取出PATH的值 <strong>由shell负责解析</strong></li>
+<li>再由<code>echo</code>把他显示出来 <strong>由echo命令完成</strong></li>
+</ol>
 </li>
 </ol>
+</li>
+</ol>
+<p>查看究竟是哪个命令 <code>which date</code> <strong>只能找到命令,不能找到独立的功能</strong></p>
+<ul>
+<li><code>which type</code> 无法找到</li>
+</ul>
+<p>shell内置的功能 找到命令 <code>type date</code></p>
+<ul>
+<li><code>type type</code>可以找到</li>
+</ul>
+<p>可以用户自己指定要运行的命令的路径<code>/usr/bin/date</code></p>
+<ul>
+<li>用绝对路径来执行命令更加安全</li>
+<li>因为环境变量是可以被修改的</li>
+</ul>
+<h4 id="Linux系统的路径"><a href="#Linux系统的路径" class="headerlink" title="Linux系统的路径"></a>Linux系统的路径</h4><ol>
+<li>以<code>/</code>表示目录</li>
+<li>文件以树状结构分布 <strong>不分区,没有盘符的概念</strong> </li>
+<li><em><strong>everything is file</strong></em><ol>
+<li>用户的接口一致性</li>
+</ol>
+</li>
+</ol>
+<p>对路径的一些操作<br><code>pwd</code> :print working directory<br><code>/home/ubuntu</code> “ubuntu”用户的家目录<br><code>cd</code> :目录切换<br><code>/home</code> 绝对路径(根号开头) <code>ubuntu</code> 相对路径(当前路径下)<br><code>..</code> 上一级目录  <code>.</code>当前目录<br><code>cd ./ubuntu</code> 切换到当前目录下的ubuntu目录<br><code>/usr/bin$ ./date</code> 执行当前目录下的date <strong>弄懂shell执行一个命令的原理</strong><br><code>~</code> 家目录<br><code>cd -</code> 回到上一次的目录</p>
+<p><code>ls</code> 显示当前路径下的文件列表</p>
+<ul>
+<li>白色是文件</li>
+<li>蓝色是文件夹</li>
+<li>灰色是备份 .orig<ul>
+<li>备份在linux下很重要,因为linux操作不可逆</li>
+</ul>
+</li>
+</ul>
+<h4 id="Linux系统文件的权限"><a href="#Linux系统文件的权限" class="headerlink" title="Linux系统文件的权限"></a>Linux系统文件的权限</h4><p><code>ls -l</code> </p>
+<ol>
+<li>total 4: 当前路径文件所占磁盘的<strong>块数</strong> <ol>
+<li><code>du</code>查看所占空间</li>
+</ol>
+</li>
+<li>以<code>-</code>开头: 普通文件</li>
+<li>以<code>d</code>开头: 目录</li>
+<li>以<code>l</code>开头: 链接</li>
+<li>后面以<strong>三个字母</strong>为一组 <code>-rw-rw-r--</code><ol>
+<li><code>r</code>可读  <code>w</code>可写  <code>x</code>可执行(与windows根据后缀判断是否可以执行不同)</li>
+<li>前三位为拥有者,中间三位为所属的组 (每个用户一般都自己一个人一个组)</li>
+<li>最后三位为其他用户</li>
+<li>对于目录可读:可以列出目录下的文件</li>
+<li>对于目录可写:可以增加删除目录下的文件</li>
+<li>对于目录可执行:可以进入目录</li>
+<li>一个目录的可执行权限最重要! <strong>只有能进入这个目录才能更改目录下的文件</strong></li>
+<li>对于文件能否删除,不决定于对这个文件是否可写,关键是对目录是否可写</li>
+</ol>
+</li>
+<li>字母后面的数字: 硬链接的数量<ol>
+<li>硬链接 数据存储在磁盘的一个区域,文件名可以看成是对这个数据的引用</li>
+<li>软链接 类似Windows的快捷方式,创建一个文件,指向这个文件名,文件名才是指向数据</li>
+<li>文件的硬链接数一般为1,目录的硬链接数为2 <ol>
+<li>上一级目录的链接</li>
+<li>当前目录下的 <code>.</code> 隐藏文件 <code>ls -a</code></li>
+</ol>
+</li>
+</ol>
+</li>
+<li>用户后面的数字:文件大小<ol>
+<li><code>ls -lh</code>已易读的方式显示出来</li>
+</ol>
+</li>
+</ol>
+<h4 id="Linux系统的文件"><a href="#Linux系统的文件" class="headerlink" title="Linux系统的文件"></a>Linux系统的文件</h4><p><code>boot</code>目录: Linux系统的内核文件<br><code>dev</code>目录: 设备目录 设备文件以<code>c</code>开头<br><code>etc</code>目录: 放置配置文件的目录<br><code>lib</code>目录: 库目录<br><code>home</code>目录: 家目录<br><code>root</code>目录: 超级用户家目录<br><code>var</code>目录: 大小可变的文件的目录 <em>日志文件</em><br><code>proc</code>和<code>sys</code>目录: 方便对内核的目录进行修改<br><code>tmp</code>目录: 临时目录 <code>t</code>权限 粘着位: 只有目录拥有者(root) 或 文件拥有者 可以进行删除</p>
+<p><code>ls -r</code>以递归形式显示文件</p>
+<p><code>mv</code> 重命名和更改文件位置<br><code>cp</code> 复制<br><code>rm</code> 删除 <strong>不能删除目录</strong> <strong>谨慎执行,不能恢复的</strong><br><code>rm -i</code> 弹出提示是否删除<br><code>rmdir</code> 删除<strong>空目录</strong><br><code>rm -r</code> 递归删除目录下所有文件<br><code>mkdir</code> 创建目录<strong>注意空格</strong><br><code>clear</code> 清空shell 快捷键<code>ctrl l</code></p>
+<h4 id="Linux系统的密码"><a href="#Linux系统的密码" class="headerlink" title="Linux系统的密码"></a>Linux系统的密码</h4><p><code>passwd</code>修改密码<br><code>cat</code>打开文件<br><code>less</code>一页一页的显示打开的文件 <code>q</code>退出<br>在<code>/etc/passwd</code>文件中存放着用户的密码(安全考虑已不存放在这)和用户的id号(辨别是否是超级用户),还可以配置家目录和启动的bash</p>
+<p><em>里面有很多无法登录的其他用户,用于系统的操作</em></p>
+<p><em>密码的难破解程度,决定于密码的长度</em></p>
+<p>密码的散列值实际存放于<code>/etc/shadow</code><br><code>passwd</code>的权限 <code>-rwsr-xr-x</code> <code>s</code>权限表示其他用户可以拥有和拥有者一样的权限<br><strong>这种程序不能有bug否则很危险</strong></p>
+<h4 id="命令的学习"><a href="#命令的学习" class="headerlink" title="命令的学习"></a>命令的学习</h4><p><code>man ls</code> 查看ls命令的手册<br><code>ls --help</code> 查看帮助信息</p>
+<p>第三方软件学习:TLDR (too long don’t read)</p>
+<h3 id="在程序之间建立连接-–-重定向"><a href="#在程序之间建立连接-–-重定向" class="headerlink" title="在程序之间建立连接 – 重定向"></a>在程序之间建立连接 – 重定向</h3><p>运行一个程序有三个流</p>
+<ol>
+<li>输入流 <em>键盘 stdin 0</em></li>
+<li>输出流 <em>屏幕 stdout 1</em></li>
+<li>错误输出流 <em>屏幕 stderr 2</em></li>
+</ol>
+<p>可以对程序的流进行重定向<strong>改变流向</strong></p>
+<ul>
+<li>重定向流到文件 <code>&gt; file</code></li>
+<li><code>cat &lt; hello.txt &gt;hello2.txt</code> 重定向输入由hello.txt输入, 再重定向输出输出到hello2.txt</li>
+<li><code>&gt;&gt;</code>追加输出重定向</li>
+<li><code>&lt;&lt;</code>用于输入多行内容,<em>不是重点</em></li>
+<li><code>2&gt;</code>错误输出重定向</li>
+</ul>
+<h3 id="在程序之间建立连接-–-管道"><a href="#在程序之间建立连接-–-管道" class="headerlink" title="在程序之间建立连接 – 管道"></a>在程序之间建立连接 – 管道</h3><p>管道<code>|</code> 将一个程序的<strong>输出</strong> 和另一个程序的<strong>输入</strong>连接起来</p>
+<p><code>ls -l | tail -n1</code><br><code>ls | rm</code>报错: <code>rm</code>命令是接受参数不是接受输入 <strong>不是所有命令都能用管道连接</strong><br><code>ls | xargs rm</code>: xargs将输入转化为参数</p>
 
     </article>
     <!-- license -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://dong-frank.github.io">dong-frank</a>
-            <p>原文链接：<a href="http://dong-frank.github.io/2024/06/22/vim%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">http://dong-frank.github.io/2024/06/22/vim%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a>
-            <p>发表日期：<a href="http://dong-frank.github.io/2024/06/22/vim%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">June 22nd 2024, 8:29:32 pm</a>
-            <p>更新日期：<a href="http://dong-frank.github.io/2024/06/22/vim%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">June 22nd 2024, 8:33:42 pm</a>
+            <p>原文链接：<a href="http://dong-frank.github.io/2024/07/27/Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80-2024-7-24/">http://dong-frank.github.io/2024/07/27/Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80-2024-7-24/</a>
+            <p>发表日期：<a href="http://dong-frank.github.io/2024/07/27/Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80-2024-7-24/">七月 27日 2024, 5:18:06 下午</a>
+            <p>更新日期：<a href="http://dong-frank.github.io/2024/07/27/Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80-2024-7-24/">七月 27日 2024, 5:22:20 下午</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -532,16 +726,16 @@
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2024/06/22/%E5%AD%A6%E4%B9%A0%E8%A7%86%E9%A2%91%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" title="学习视频资源分享">
-                    <div class="nextTitle">学习视频资源分享</div>
+                <a href="/2024/07/27/Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80-2024-7-25/" title="Linux系统基础 2024.7.25">
+                    <div class="nextTitle">Linux系统基础 2024.7.25</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2024/06/22/power-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="power shell学习笔记">
-                    <div class="prevTitle">power shell学习笔记</div>
+                <a href="/2024/07/18/MC%E6%8B%94%E5%88%80%E5%89%91%E6%A8%A1%E7%BB%84%E9%84%82%E9%97%A8%E5%A6%82%E4%BD%95%E9%99%A4%E9%94%88/" title="MC拔刀剑模组鄂门如何除锈">
+                    <div class="prevTitle">MC拔刀剑模组鄂门如何除锈</div>
                 </a>
             
         </li>
@@ -681,7 +875,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E4%B8%80%E7%AF%87%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8Vim%E7%9A%84%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">这是一篇学习使用Vim的笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-number">1.1.</span> <span class="toc-text">基本操作</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">Linux系统基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%BA%AF%E6%BA%90"><span class="toc-number">1.1.</span> <span class="toc-text">Linux操作系统溯源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-vs-Linux%E5%8F%91%E8%A1%8C%E7%89%88"><span class="toc-number">1.2.</span> <span class="toc-text">Linux vs Linux发行版</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Linux"><span class="toc-number">1.3.</span> <span class="toc-text">使用Linux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5Linux"><span class="toc-number">1.3.1.</span> <span class="toc-text">导入Linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8"><span class="toc-number">1.3.2.</span> <span class="toc-text">日常使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E6%9B%B4%E6%96%B0"><span class="toc-number">1.3.3.</span> <span class="toc-text">软件更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%90%AF%E7%94%A8SSH%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.3.4.</span> <span class="toc-text">虚拟机启用SSH服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.3.5.</span> <span class="toc-text">为什么要使用命令行接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E6%97%B6%E5%8C%BA"><span class="toc-number">1.3.5.1.</span> <span class="toc-text">切换时区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A5echo%E4%B8%BA%E4%BE%8B%E4%BB%8B%E7%BB%8D%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.5.2.</span> <span class="toc-text">以echo为例介绍带参数的命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux%E7%B3%BB%E7%BB%9F%E6%98%AF%E6%80%8E%E4%B9%88%E6%89%BE%E5%88%B0%E8%BF%99%E4%BA%9B%E5%91%BD%E4%BB%A4%E7%9A%84"><span class="toc-number">1.3.5.3.</span> <span class="toc-text">Linux系统是怎么找到这些命令的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%B7%AF%E5%BE%84"><span class="toc-number">1.3.5.4.</span> <span class="toc-text">Linux系统的路径</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90"><span class="toc-number">1.3.5.5.</span> <span class="toc-text">Linux系统文件的权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.5.6.</span> <span class="toc-text">Linux系统的文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AF%86%E7%A0%81"><span class="toc-number">1.3.5.7.</span> <span class="toc-text">Linux系统的密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E7%9A%84%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.3.5.8.</span> <span class="toc-text">命令的学习</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E7%A8%8B%E5%BA%8F%E4%B9%8B%E9%97%B4%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5-%E2%80%93-%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">1.3.6.</span> <span class="toc-text">在程序之间建立连接 – 重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E7%A8%8B%E5%BA%8F%E4%B9%8B%E9%97%B4%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5-%E2%80%93-%E7%AE%A1%E9%81%93"><span class="toc-number">1.3.7.</span> <span class="toc-text">在程序之间建立连接 – 管道</span></a></li></ol></li></ol></li></ol>
             </div>
         
         <!-- sidebar -->

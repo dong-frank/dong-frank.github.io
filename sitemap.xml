@@ -2,6 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://dong-frank.github.io/2024/07/27/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-2024-7-23/</loc>
+    
+    <lastmod>2024-07-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://dong-frank.github.io/2024/07/27/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-2024-7-22/</loc>
+    
+    <lastmod>2024-07-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://dong-frank.github.io/2024/07/27/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-2024-7-21/</loc>
+    
+    <lastmod>2024-07-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://dong-frank.github.io/2024/07/27/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-2024-7-20/</loc>
+    
+    <lastmod>2024-07-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://dong-frank.github.io/2024/07/27/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-2024-7-19/</loc>
+    
+    <lastmod>2024-07-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://dong-frank.github.io/2024/07/27/Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80-%E5%A4%8D%E4%B9%A0/</loc>
     
     <lastmod>2024-07-27</lastmod>
@@ -288,6 +333,13 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>http://dong-frank.github.io/tags/Web/</loc>
+    <lastmod>2024-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -341,6 +393,13 @@
   
   <url>
     <loc>http://dong-frank.github.io/categories/%E6%B8%B8%E6%88%8F%E6%94%BB%E7%95%A5/</loc>
+    <lastmod>2024-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://dong-frank.github.io/categories/Web%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2024-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

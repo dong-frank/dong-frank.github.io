@@ -26,16 +26,16 @@
 <meta property="og:site_name" content="dong-frank&#39;s blog">
 <meta property="og:description" content="第十五讲 控制器寄存器分类 用户可见寄存器:允许编程人员通过机器语言或汇编语言访问，通过优化寄存器的使用而减少对主存的访问 控制和状态寄存器  两者区分并不严格 用户可见寄存器  通用寄存器:可被程序员指派各种用途 数据寄存器:仅可用于保持数据而不能用于操作数地址的计算 地址寄存器:可以是自身有某些通用性，或是专用于某种具体的寻址方式 条件码寄存器&#x2F;标志（flag）寄存器:CPU硬件设置">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image.png">
-<meta property="og:image" content="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image-1.png">
-<meta property="og:image" content="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image-2.png">
-<meta property="og:image" content="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image-3.png">
+<meta property="og:image" content="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image.png">
+<meta property="og:image" content="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image-1.png">
+<meta property="og:image" content="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image-2.png">
+<meta property="og:image" content="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image-3.png">
 <meta property="article:published_time" content="2025-02-18T03:10:39.000Z">
 <meta property="article:modified_time" content="2025-02-18T03:10:41.000Z">
 <meta property="article:author" content="dong-frank">
 <meta property="article:tag" content="计算机组成原理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image.png">
+<meta name="twitter:image" content="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/dongicon.ico">
@@ -542,7 +542,7 @@
 </ul>
 <p>取指周期</p>
 <ul>
-<li>出现在每个指令周期的开始，将指令从存储器中取出<br><img src="/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image.png" alt="alt text"></li>
+<li>出现在每个指令周期的开始，将指令从存储器中取出<br><img src="/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image.png" alt="alt text"></li>
 </ul>
 <p>微操作分组的原则</p>
 <ul>
@@ -552,7 +552,7 @@
 </ul>
 <p>间址周期</p>
 <ul>
-<li>如果指令采用间接寻址，则在指令执行前有一个间址周期<br><img src="/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image-1.png" alt="alt text"></li>
+<li>如果指令采用间接寻址，则在指令执行前有一个间址周期<br><img src="/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image-1.png" alt="alt text"></li>
 <li>完成间址周期后，IR的状态与不使用间接寻址方式的状态是相同的，已经为执行周期准备就绪</li>
 </ul>
 <p>执行周期</p>
@@ -562,7 +562,7 @@
 <p>中断周期</p>
 <ul>
 <li>在完成执行周期时，要确定是否有允许的中断产生</li>
-<li>如果有，则出现一个中断周期<br><img src="/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image-2.png" alt="alt text"></li>
+<li>如果有，则出现一个中断周期<br><img src="/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image-2.png" alt="alt text"></li>
 </ul>
 <p>指令周期代码ICC</p>
 <ul>
@@ -648,7 +648,7 @@
 <ul>
 <li>为每个输出的控制信号设计一个关于控制器输入的布尔表达式</li>
 </ul>
-<p><img src="/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image-3.png" alt="alt text"></p>
+<p><img src="/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/image-3.png" alt="alt text"></p>
 <h3 id="微程序实现"><a href="#微程序实现" class="headerlink" title="微程序实现"></a>微程序实现</h3><p>微程序（固件）介于硬件与软件之间</p>
 <ul>
 <li>设计固件比设计硬件容易，但写固件程序比软件程序困难</li>

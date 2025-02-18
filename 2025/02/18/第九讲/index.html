@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="dong-frank">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="dong-frank">
+    
+        <meta name="keywords" content="dong-frank,学习笔记,计算机,软件工程,南京大学,南京大学软件工程,南京大学计算机,南京大学计算机学院,南京大学软件学院,南京大学软件工程学院">
+    
+    <meta name="description" content="">
+    <meta name="description" content="第九讲 高速缓冲存储器 CacheCache的基本思路解决内存墙带来的CPU和主存协作问题  在使用主存（相对大而慢）之余，添加一块小而快的cache Cache位于CPU和主存之间，可以集成在CPU内部或作为主板上的一个模块 Cache中存放了主存中的部分信息的“副本”  Cache的工作流程 Check当CPU试图访问主存中的某个字时，首先检查这个字是否在cache中检查后有两种情况   命中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dong-frank&#39;s blog">
+<meta property="og:url" content="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E4%B9%9D%E8%AE%B2/index.html">
+<meta property="og:site_name" content="dong-frank&#39;s blog">
+<meta property="og:description" content="第九讲 高速缓冲存储器 CacheCache的基本思路解决内存墙带来的CPU和主存协作问题  在使用主存（相对大而慢）之余，添加一块小而快的cache Cache位于CPU和主存之间，可以集成在CPU内部或作为主板上的一个模块 Cache中存放了主存中的部分信息的“副本”  Cache的工作流程 Check当CPU试图访问主存中的某个字时，首先检查这个字是否在cache中检查后有两种情况   命中">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E4%B9%9D%E8%AE%B2/02/18/%E7%AC%AC%E4%B9%9D%E8%AE%B2/image.png">
+<meta property="article:published_time" content="2025-02-18T02:56:46.571Z">
+<meta property="article:modified_time" content="2025-01-10T07:36:40.792Z">
+<meta property="article:author" content="dong-frank">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E4%B9%9D%E8%AE%B2/02/18/%E7%AC%AC%E4%B9%9D%E8%AE%B2/image.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/dongicon.ico">
+    
+    <title>dong-frank&#39;s blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- Google tag (gtag.js) -->
+    
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>dong-frank的博客</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">dong-frank的博客</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name"></a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                [Untitled Post]
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.1k</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2025/02/18</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="第九讲-高速缓冲存储器-Cache"><a href="#第九讲-高速缓冲存储器-Cache" class="headerlink" title="第九讲 高速缓冲存储器 Cache"></a>第九讲 高速缓冲存储器 Cache</h1><h2 id="Cache的基本思路"><a href="#Cache的基本思路" class="headerlink" title="Cache的基本思路"></a>Cache的基本思路</h2><p>解决内存墙带来的CPU和主存协作问题</p>
+<ul>
+<li>在使用主存（相对大而慢）之余，添加一块小而快的cache</li>
+<li>Cache位于CPU和主存之间，可以集成在CPU内部或作为主板上的一个模块</li>
+<li>Cache中存放了主存中的部分信息的“副本”</li>
+</ul>
+<h2 id="Cache的工作流程"><a href="#Cache的工作流程" class="headerlink" title="Cache的工作流程"></a>Cache的工作流程</h2><ol>
+<li>Check当CPU试图访问主存中的某个字时，首先检查这个字是否在cache中<br>检查后有两种情况</li>
+</ol>
+<ul>
+<li>命中（Hit）：如果在cache中，则把这个字传送给CPU</li>
+<li>未命中（Miss）：如果不在cache中, 则将主存中包含这个字固定大小的块（block）读入cache中，然后再从cache传送该字给CPU</li>
+</ul>
+<p>如何判断命中还是未命中: 使用标记<br>标记就是物理地址 - 块内偏移量 - cache组索引部分<br>tag + 组索引 + 块内偏移量, 这样tag + 组索引也就是块号部分</p>
+<p>如果未命中, 为什么不直接把所需要的字从内存传送到CPU?: 利用程序访问的时间局部性<br>如果未命中，为什么从内存中读入一个块而不只读入一个字?: 利用程序访问的空间局部性</p>
+<p>程序访问的局部性原理</p>
+<ul>
+<li>时间局部性: 在相对较短的时间周期内，重复访问特定的信息</li>
+<li>空间局部性: 在相对较短的时间周期内，访问相邻存储位置的数据</li>
+</ul>
+<p>使用Cache后需要更多的操作，为什么还可以节省时间?<br>计算Cache的平均访问时间<br>假设p是命中率, Tc是访问Cache的时间, Tm是访问主存的时间<br><code>T = p * Tc + (1-p) * (Tc + Tm) = Tc +(1-p)Tm</code><br>Tc越小, p越大 Cache的效果越好<br>如果想要T &lt; Tm, 则必须有 p &gt; Tc&#x2F;Tm</p>
+<h2 id="Cache的构成"><a href="#Cache的构成" class="headerlink" title="Cache的构成"></a>Cache的构成</h2><p>Cache是由SRAM构成的</p>
+<ol>
+<li>标记存储体tag SRAM ：存放主存的组号</li>
+<li>数据存储体Cache SRAM：存放组内对应块的主存信息</li>
+</ol>
+<h2 id="Cache的设计要素"><a href="#Cache的设计要素" class="headerlink" title="Cache的设计要素"></a>Cache的设计要素</h2><ol>
+<li>容量<ol>
+<li>增大容量可以提高命中率, 但也增大了访问Cache时间</li>
+</ol>
+</li>
+<li>映射功能<ol>
+<li>直接映射</li>
+<li>关联映射</li>
+<li>组关联映射</li>
+</ol>
+</li>
+<li>替换算法<ol>
+<li>直接映射没有替换算法</li>
+<li>最近最少使用算法LRU:替换掉在cache中最长时间未被访问的数据块</li>
+<li>先进先出算法FIFO:替换掉在Cache中停留时间最长的块</li>
+<li>最不经常使用算法LFU:替换掉cache中被访问次数最少的数据块</li>
+<li>随机替换算法:随机替换cache中的数据块</li>
+</ol>
+</li>
+<li>写策略<ol>
+<li>当cache中的某个数据块被替换时，需要考虑该数据块是否被修改</li>
+<li>写直达:所有写操作都同时对cache和主存进行</li>
+<li>写回法:先更新cache中的数据，当cache中某个数据块被替换时，如果它被修改了，才被写回主存</li>
+</ol>
+</li>
+<li>行大小<ol>
+<li>一行(也就是一块)有多少字节</li>
+<li>和命中率的关系较为复杂</li>
+</ol>
+</li>
+<li>Cache数目<ol>
+<li>一级和多级Cache</li>
+<li>统一和分立的Cache</li>
+<li>分立Cache分为存数据的Cache和存指令的Cache</li>
+</ol>
+</li>
+</ol>
+<p>不同映射功能</p>
+<ol>
+<li>直接映射<ol>
+<li>优点: 简单, 快速检查, 快速映射</li>
+<li>缺点: 抖动现象, 如果一个程序重复访问两个需要映射到同一行中且来自不同块的字，则这两个块不断地被交换到cache中，cache的命中率将会降低</li>
+<li>适合大容量Cache</li>
+</ol>
+</li>
+<li>关联映射<ol>
+<li>优点: 避免抖动, 因为一个块能装入Cache中任意一行</li>
+<li>缺点: 实现起来比较复杂, Cache搜索代价很大，即在检查的时候需要去访问cache的每一行</li>
+<li>适合小容量Cache</li>
+</ol>
+</li>
+<li>组关联映射 (K-路组关联映射)<ol>
+<li>结合了直接映射和关联映射的优缺点</li>
+<li>面向不同容量的cache做了折中</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>关联度越低，命中率越低<ul>
+<li>直接映射的命中率最低，关联映射的命中率最高</li>
+</ul>
+</li>
+<li>关联度越低，判断是否命中的时间越短<ul>
+<li>直接映射的命中时间最短，关联映射的命中时间最长</li>
+</ul>
+</li>
+<li>关联度越低，标记所占额外空间开销越小<ul>
+<li>直接映射的标记最短，关联映射的标记最长</li>
+</ul>
+</li>
+</ul>
+<h2 id="易错题目"><a href="#易错题目" class="headerlink" title="易错题目"></a>易错题目</h2><p><img src="/2025/02/18/%E7%AC%AC%E4%B9%9D%E8%AE%B2/02/18/%E7%AC%AC%E4%B9%9D%E8%AE%B2/image.png" alt="alt text"></p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://dong-frank.github.io">dong-frank</a>
+            <p>原文链接：<a href="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E4%B9%9D%E8%AE%B2/">http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E4%B9%9D%E8%AE%B2/</a>
+            <p>发表日期：<a href="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E4%B9%9D%E8%AE%B2/">February 18th 2025, 10:56:46 am</a>
+            <p>更新日期：<a href="http://dong-frank.github.io/2025/02/18/%E7%AC%AC%E4%B9%9D%E8%AE%B2/">January 10th 2025, 3:36:40 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2025/02/18/%E7%AC%AC%E5%85%AD%E8%AE%B2/" title="">
+                    <div class="nextTitle">[Untitled Post]</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2025/02/18/%E7%AC%AC%E4%BA%8C%E8%AE%B2/" title="">
+                    <div class="prevTitle">[Untitled Post]</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="//github.com/dong-frank" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <a href="mailto:dongshenrao@smail.nju.edu.cn" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/wechat_qr.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E8%AE%B2-%E9%AB%98%E9%80%9F%E7%BC%93%E5%86%B2%E5%AD%98%E5%82%A8%E5%99%A8-Cache"><span class="toc-number">1.</span> <span class="toc-text">第九讲 高速缓冲存储器 Cache</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Cache%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="toc-number">1.1.</span> <span class="toc-text">Cache的基本思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cache%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text">Cache的工作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cache%E7%9A%84%E6%9E%84%E6%88%90"><span class="toc-number">1.3.</span> <span class="toc-text">Cache的构成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cache%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%A6%81%E7%B4%A0"><span class="toc-number">1.4.</span> <span class="toc-text">Cache的设计要素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%93%E9%94%99%E9%A2%98%E7%9B%AE"><span class="toc-number">1.5.</span> <span class="toc-text">易错题目</span></a></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 41
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2025 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E4%B8%83%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E5%85%AD%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E4%B9%9D%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E4%BA%8C%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E5%85%AB%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E4%B8%80%E8%AE%B2/">第一讲 计算机系统概述</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span>
+            <a class="archive-post-title" href="/2024/07/27/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-2024-7-21/">Web开发基础 2024.7.21</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span>
+            <a class="archive-post-title" href="/2024/07/27/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-2024-7-19/">Web开发基础 2024.7.19</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span>
+            <a class="archive-post-title" href="/2024/07/27/Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80-%E5%A4%8D%E4%B9%A0/">Linux系统基础 复习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span>
+            <a class="archive-post-title" href="/2024/07/27/Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80-2024-7-27/">Linux系统基础 2024.7.27</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span>
+            <a class="archive-post-title" href="/2024/07/27/Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80-2024-7-26/">Linux系统基础 2024.7.26</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span>
+            <a class="archive-post-title" href="/2024/07/27/Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80-2024-7-25/">Linux系统基础 2024.7.25</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span>
+            <a class="archive-post-title" href="/2024/07/27/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-2024-7-23/">Web开发基础 2024.7.23</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/18</span>
+            <a class="archive-post-title" href="/2024/07/18/MC%E6%8B%94%E5%88%80%E5%89%91%E6%A8%A1%E7%BB%84%E9%84%82%E9%97%A8%E5%A6%82%E4%BD%95%E9%99%A4%E9%94%88/">MC拔刀剑模组鄂门如何除锈</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span>
+            <a class="archive-post-title" href="/2024/07/01/MC%E6%9C%8D%E5%8A%A1%E5%99%A8/">MC内网穿透搭建免费服务器</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/25</span>
+            <a class="archive-post-title" href="/2024/06/25/%E5%8D%97%E4%BA%AC%E5%A4%A7%E5%AD%A6%E5%A4%A7%E4%B8%80%E6%80%9D%E4%BF%AE%E5%A4%8D%E4%B9%A0/">南京大学大一思修复习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/23</span>
+            <a class="archive-post-title" href="/2024/06/23/%E5%B9%BA%E5%B9%BA%E6%90%AC%E5%AE%B6%E6%97%A5%E8%AE%B0/">幺幺搬家日记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/22</span>
+            <a class="archive-post-title" href="/2024/06/22/markdown%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">markdown学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/22</span>
+            <a class="archive-post-title" href="/2024/06/22/%E5%8D%97%E4%BA%AC%E5%A4%A7%E5%AD%A6%E5%A4%A7%E4%B8%80CPL%E6%9C%9F%E6%9C%AB%E5%A4%A7%E4%BD%9C%E4%B8%9A/">南京大学大一CPL期末大作业</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/22</span>
+            <a class="archive-post-title" href="/2024/06/22/%E5%AD%A6%E4%B9%A0%E8%A7%86%E9%A2%91%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/">学习视频资源分享</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/22</span>
+            <a class="archive-post-title" href="/2024/06/22/power-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">power shell学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/22</span>
+            <a class="archive-post-title" href="/2024/06/22/vim%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">vim学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/22</span>
+            <a class="archive-post-title" href="/2024/06/22/git%E5%92%8CGitHub%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">git和GitHub学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/22</span>
+            <a class="archive-post-title" href="/2024/06/22/%E5%8D%97%E4%BA%AC%E5%A4%A7%E5%AD%A6%E5%A4%A7%E4%B8%80CPL%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">南京大学大一CPL课程笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/22</span>
+            <a class="archive-post-title" href="/2024/06/22/hello-world/">Hello World</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/22</span>
+            <a class="archive-post-title" href="/2024/06/22/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">2024南京大学EL程序设计大赛</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/06/23/%E7%99%BE%E5%BA%A6Android%E5%85%A8%E6%99%AF%E5%9C%B0%E5%9B%BEAPI%E8%B0%83%E7%94%A8/">百度Android全景地图API调用</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/07/27/Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80-2024-7-24/">Linux系统基础 2024.7.24</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/07/27/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-2024-7-20/">Web开发基础 2024.7.20</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/07/27/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-2024-7-22/">Web开发基础 2024.7.22</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E4%B8%89%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E4%BA%94%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E5%8D%81%E4%B8%89%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E5%8D%81%E4%B8%83%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E5%8D%81%E5%85%AD%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E5%9B%9B%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2025/02/18/%E7%AC%AC%E5%8D%81%E8%AE%B2/">[Untitled Post]</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="经验分享">
+                <span class="iconfont-archer">&#xe606;</span>
+                经验分享
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="南大">
+                <span class="iconfont-archer">&#xe606;</span>
+                南大
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="资源分享">
+                <span class="iconfont-archer">&#xe606;</span>
+                资源分享
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="萌宠">
+                <span class="iconfont-archer">&#xe606;</span>
+                萌宠
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="生活">
+                <span class="iconfont-archer">&#xe606;</span>
+                生活
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="软件工程">
+                <span class="iconfont-archer">&#xe606;</span>
+                软件工程
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="课程笔记">
+                <span class="iconfont-archer">&#xe606;</span>
+                课程笔记
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="比赛经验">
+                <span class="iconfont-archer">&#xe606;</span>
+                比赛经验
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="安卓开发">
+                <span class="iconfont-archer">&#xe606;</span>
+                安卓开发
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="EL">
+                <span class="iconfont-archer">&#xe606;</span>
+                EL
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Android">
+                <span class="iconfont-archer">&#xe606;</span>
+                Android
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="游戏攻略">
+                <span class="iconfont-archer">&#xe606;</span>
+                游戏攻略
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="MC">
+                <span class="iconfont-archer">&#xe606;</span>
+                MC
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Linux">
+                <span class="iconfont-archer">&#xe606;</span>
+                Linux
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Web">
+                <span class="iconfont-archer">&#xe606;</span>
+                Web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="计算机组成原理">
+                <span class="iconfont-archer">&#xe606;</span>
+                计算机组成原理
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="自学笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            自学笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="项目分享">
+            <span class="iconfont-archer">&#xe60a;</span>
+            项目分享
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="资源分享">
+            <span class="iconfont-archer">&#xe60a;</span>
+            资源分享
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="幺幺">
+            <span class="iconfont-archer">&#xe60a;</span>
+            幺幺
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="大一课程笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            大一课程笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="比赛经验">
+            <span class="iconfont-archer">&#xe60a;</span>
+            比赛经验
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Android开发">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Android开发
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="游戏攻略">
+            <span class="iconfont-archer">&#xe60a;</span>
+            游戏攻略
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Web开发">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Web开发
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://dong-frank.github.io",
+        root: siteMetaRoot,
+        author: "dong-frank"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
